@@ -69,14 +69,14 @@
 			<version>${org.mapstruct.version}</version>
 		</dependency>
 
-		!--
-		https://mvnrepository.com/artifact/org.projectlombok/lom
-		bok-mapstruct-binding -->
+		<!--
+     https://mvnrepository.com/artifact/org.projectlombok/lom
+     bok-mapstruct-binding -->
 		<dependency>
-		<groupId>org.projectlombok</groupId>
-		<artifactId>lombok-mapstruct-binding</artifactId>
-			version>${org.projectlombok.binding.version}</version>
-		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok-mapstruct-binding</artifactId><version>${org.projectlombok.binding.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -93,7 +93,37 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<!-- paso 4: declarar proceso de building entre
+mapstruct y lombok-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${org.mapstruct.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${org.projectlombok.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>${org.projectlombok.binding.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
 		</plugins>
+
 	</build>
 
 </project>
