@@ -4,14 +4,12 @@ import ar.com.ada.online.second.library.model.dto.AuthorDTO;
 import ar.com.ada.online.second.library.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 public class AuthorController {
@@ -34,13 +32,13 @@ public class AuthorController {
          *
          * esa logica esta en el servicio.
          */
-        AuthorDTO authorDTO = authorServices.createNew(dto, bookId);
+        AuthorDTO authorDTO = authorService.createNew(dto, bookId);
 
-        URI uri = new URI("/artist/" + albumSa-ved.getId());
+        URI uri = new URI("/book/" + AuthorSaved.getId());
 
         return ResponseEntity
                 .created(uri)
-                .body(albumSaved);
+                .body(authorSaved);
     }
 
 
@@ -49,7 +47,7 @@ public class AuthorController {
     public ResponseEntity getAlbumsMethod() {
         // se llama al servicio y se le pide el listado de albums
 
-        List<AlbumDTO> albums = albumServices.getAll();
+        List<AuthorDTO> albums = authorService.getAll();
 
         // se crea el response request
         return ResponseEntity
@@ -57,9 +55,9 @@ public class AuthorController {
                 .body(albums);
     }
 
-    @GetMapping({ "/albums/{id}", "/albums/{id}/" })
+    @GetMapping({ "/author/{id}", "/author/{id}/" })
 
-    public ResponseEntity getAlbumByIdMet-hod(@PathVariable Long id) {
+    public ResponseEntity getAlbumByIdMethod(@PathVariable Long id) {
 
         AlbumDTO byId = albumServices.getById(id);
 
@@ -69,10 +67,10 @@ public class AuthorController {
     }
 
 
-    @DeleteMapping({ "/albums/{id}", "/albums/{id}/" })
+    @DeleteMapping({ "/author/{id}", "/author/{id}/" })
 
-    public ResponseEntity deleteAlbumByIdMet-hod(@PathVariable Long id) {
-        albumServices.remove(id);
+    public ResponseEntity deleteAuthorByIdMethod(@PathVariable Long id) {
+        authorService.remove(id);
         return ResponseEntity
                 .noContent()
                 .build();
