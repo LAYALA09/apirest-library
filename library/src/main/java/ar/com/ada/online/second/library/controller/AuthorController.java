@@ -20,9 +20,9 @@ public class AuthorController {
 
     /*es una anotación compuesta que actúa como un acceso directo*/
     @PostMapping({"/book/{bookId}/author", "/book/{bookId}/author/"})
-    public ResponseEntity postArtistMethod(
+    public ResponseEntity postBooktMethod(
             @Valid @RequestBody AuthorDTO dto,
-            @PathVariable Long artistId) throws URISyntaxException {
+            @PathVariable Long booktId) throws URISyntaxException {
         /**
          * Este metodo tiene una definicion especial ya que la entidad Author tiene relacion
          * con book, y al momento de crear un Albun, es necesario indicarle a que artista estara
@@ -32,69 +32,8 @@ public class AuthorController {
          *
          * esa logica esta en el servicio.
          */
-        AuthorDTO authorDTO = authorService.createNew(dto, bookId);
-
-        URI uri = new URI("/book/" + AuthorSaved.getId());
-
-        return ResponseEntity
-                .created(uri)
-                .body(authorSaved);
+    return null;
     }
-
-
-    @GetMapping({ "/albums", "/albums/" })
-
-    public ResponseEntity getAlbumsMethod() {
-        // se llama al servicio y se le pide el listado de albums
-
-        List<AuthorDTO> albums = authorService.getAll();
-
-        // se crea el response request
-        return ResponseEntity
-                .ok()
-                .body(albums);
-    }
-
-    @GetMapping({ "/author/{id}", "/author/{id}/" })
-
-    public ResponseEntity getAlbumByIdMethod(@PathVariable Long id) {
-
-        AlbumDTO byId = albumServices.getById(id);
-
-        return ResponseEntity
-                .ok()
-                .body(byId);
-    }
-
-
-    @DeleteMapping({ "/author/{id}", "/author/{id}/" })
-
-    public ResponseEntity deleteAuthorByIdMethod(@PathVariable Long id) {
-        authorService.remove(id);
-        return ResponseEntity
-                .noContent()
-                .build();
-    }
-
-
-    @PatchMapping({ "/artists/{artistId}/albums/{albumId}", "/artists/{artistId}/albums/{albumId}/" })
-
-    public ResponseEntity patchArtistByIdMethod(
-
-            @RequestBody AlbumDTO dto,
-            @PathVariable Long artistId,
-            @PathVariable Long albumId) {
-
-        AlbumDTO albumUpdated = albumServi-ces.update(dto, artistId, albumId);
-
-        return ResponseEntity
-                .ok()
-                .body(albumUpdated);
-    }
-
-
-
-
 }
 
 
